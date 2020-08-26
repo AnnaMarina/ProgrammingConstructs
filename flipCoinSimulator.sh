@@ -19,8 +19,8 @@
 
 
 	end=1;
-	hcount=5;
-	tcount=5;
+	hcount=0;
+	tcount=0;
 
 	while [ $hcount -lt 21 ]
 	do
