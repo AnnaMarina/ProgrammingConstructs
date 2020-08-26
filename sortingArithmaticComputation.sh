@@ -11,3 +11,12 @@ declare -A arithmatic
         arithmatic[a+b*c]=$(($num1+$num2*$num3));
         arithmatic[c+a/b]=$(($num3+$num1/$num2));
         arithmatic[a%b+c]=$(($num1%$num2+$num3));
+
+	i=0;
+        for n in ${arithmatic[@]};
+        do
+                array[(($i))]=$(($n));
+                i=$(($i+1));
+        done;
+        echo "The array is : "${array[@]};
+
