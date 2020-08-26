@@ -13,7 +13,6 @@ single() {
 			countT=$(($countT+1));
 		fi
 	done
-
 	combination[H]=$countH;
 	combination[T]=$countT;
 }
@@ -89,8 +88,6 @@ triplet() {
         combination[HTT]=$countHTT;
         combination[THH]=$countTHH;
 
-
-
 	count=0;
 	#For calculating percentage of singlet, doublet and triplet.
 	echo "The Single, Doublet and Triplet count are";
@@ -98,7 +95,7 @@ triplet() {
 	do
 		temp=`printf "${combination[$n]}"`
 		echo $n " : " $temp;
-		percent[$(($count))]=`printf %.3f "$(($temp*100*100/$1))e-2"`;
+		percent[$(($count))]=`printf "$(($temp*100/$1))"`;
 		key[$(($count))]=`printf "$n"`;
 		count=$(($count+1));
 	done
@@ -107,13 +104,23 @@ triplet() {
 	for ((j=o; j<count; j++ ))
 	do
 	echo "${key[$j]}  :  ${percent[$j]}"
-
 	done
-}
 
+	max=`printf "${percent[0]}"`;
+	max1=`printf "${key[0]}"`;
+	for ((i=1; i<count; i++))
+	do
+		num=`printf "${percent[i]}"`;
+		if [ $max -lt $num ]; then
+			max=`printf "${percent[i]}"`;
+			max1=`printf "${key[i]}"`;
+		fi
+	done
+	echo "********************************************";
+	echo " The maximum displayed Combination is " $max1 " by " $max "% and total times appeared is ${combination[$max1]} ";
+}
 	read -p "Enter the limit : " limit
 
 	single $limit
 	doublet $limit
 	triplet $limit
-
