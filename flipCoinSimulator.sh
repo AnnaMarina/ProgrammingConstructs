@@ -3,7 +3,7 @@
 	hcount=0;
 	tcount=0;
 
-	while [ $end -ne 0 ]
+	while [ $hcount -lt 21 ]
 	do
 		choice=$((RANDOM%2))
 		if [ $choice -eq 0 ]; then
@@ -11,7 +11,12 @@
 		else
 			tcount=$(($tcount+1));
 		fi
-	read -p "For exit enter 0   " end ;
+		if [ $tcount -eq 21 ]; then
+			echo "Tail wins by " $(($tcount-$hcount));
+			break;
+		elif [ $hcount -eq 21 ]; then
+			echo "Head wins by " $(($hcount-$tcount));
+		fi
 	done
 
 	echo "Head count " $hcount;
