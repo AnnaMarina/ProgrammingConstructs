@@ -1,4 +1,8 @@
 #!/bin/bash
+#
+#A simulator which sorts Singles, Doublet and Triplet Combination. Also shows the winning combination
+#
+
 declare -A combination
 
 single() {

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#Write a program to take Three inputs and perform Arithmatic operations.
+#Store the result into Dictionary and then array. Sort the result and print it both in Descending and Ascending order
+
 declare -A arithmatic
 
         echo "Enter the 3 inputs";
@@ -12,6 +15,12 @@ declare -A arithmatic
         arithmatic[c+a/b]=$(($num3+$num1/$num2));
         arithmatic[a%b+c]=$(($num1%$num2+$num3));
 
+	for n in ${!arithmatic[@]}
+	do
+		echo "$n";
+		echo "${arithmatic[$n]}";
+
+	done
 	i=0;
         for n in ${arithmatic[@]};
         do

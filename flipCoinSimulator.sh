@@ -1,5 +1,7 @@
 #!/bin/bash
-
+#
+#A simulator, loop through multiple times of looping coin and prints who wins by how much
+#
 	tie () {
 	temp=0;
 	while [ $temp -lt 2 ]
