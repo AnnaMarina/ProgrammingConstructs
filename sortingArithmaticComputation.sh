@@ -20,3 +20,19 @@ declare -A arithmatic
         done;
         echo "The array is : "${array[@]};
 
+	 for (( i=0; i<${#array[@]}; i++))
+                do
+                        for (( j=$(($i+1)); j<${#array[@]}; j++))
+                        do
+                                num1=`printf "${array[$i]}"`
+                                num2=`printf "${array[$j]}"`;
+                                if [ $num2 -gt $num1 ]; then
+                                temp1=$num1
+                                temp2=$num2
+                                array[(($i))]=$temp2
+                                array[(($j))]=$temp1
+                        fi
+                done
+        done
+        echo "The Descending order is : "${array[@]};
+
