@@ -1,6 +1,6 @@
 #!/bin/bash
 declare -A combination
-declare -A percent
+
 single() {
 	countT=0; countH=0;
 
@@ -27,53 +27,93 @@ doublet() {
 		case $choice in
 			0)
 				countHH=$(($countHH+1))
-			;;
-
+				;;
 			1)
 				countHT=$(($countHT+1))
-			;;
-
+				;;
 			2)
 				countTH=$(($countTH+1))
-			;;
-
+				;;
 			3)
 				countTT=$(($countTT+1))
-			;;
-
+				;;
 		esac
 	done
 	combination[HH]=$countHH;
 	combination[HT]=$countHT;
 	combination[TH]=$countTH;
 	combination[TT]=$countTT;
+}
 
-	i=0;
+triplet() {
+	countHHH=0; countHHT=0; countHTH=0; countTHT=0; countTTH=0;
+	countTTT=0; countHTT=0; countTHH=0;
 
-	#For calculating percentage of singlet and doublet.
+        for ((i=0; i<$1; i++))
+        do
+                choice=$((RANDOM%8));
+                case $choice in
+                        0)
+                                countHHH=$(($countHHH+1))
+                                ;;
+                        1)
+                                countHHT=$(($countHHT+1))
+                                ;;
+                        2)
+                                countHTH=$(($countHTH+1))
+                                ;;
+                        3)
+                                countTHT=$(($countTHT+1))
+                                ;;
+			4)
+                                countTTH=$(($countTTH+1))
+                                ;;
+                        5)
+                                countTTT=$(($countTTT+1))
+                                ;;
+                        6)
+                                countHTT=$(($countHTT+1))
+                                ;;
+                        7)
+                                countTHH=$(($countTHH+1))
+                                ;;
+
+                esac
+        done
+        combination[HHH]=$countHHH;
+        combination[HHT]=$countHHT;
+        combination[HTH]=$countHTH;
+        combination[THT]=$countTHT;
+	combination[TTH]=$countTTH;
+        combination[TTT]=$countTTT;
+        combination[HTT]=$countHTT;
+        combination[THH]=$countTHH;
+
+
+
+	count=0;
+	#For calculating percentage of singlet, doublet and triplet.
+	echo "The Single, Doublet and Triplet count are";
 	for n in ${!combination[@]}
 	do
 		temp=`printf "${combination[$n]}"`
-		percent[$(($i))]=`printf %.3f "$(($temp*100*100/$1))e-2"`;
-		key[$(($i))]=`printf "$n"`;
-		i=$(($i+1));
+		echo $n " : " $temp;
+		percent[$(($count))]=`printf %.3f "$(($temp*100*100/$1))e-2"`;
+		key[$(($count))]=`printf "$n"`;
+		count=$(($count+1));
 	done
 
-	#To print the single and doublet
-	echo "The single and doublet are";
-	echo "${!combination[@]}";
-        echo "${combination[@]}";
-
 	echo "The percentage are as follows";
-	for ((j=o; j<i; j++ ))
+	for ((j=o; j<count; j++ ))
 	do
 	echo "${key[$j]}  :  ${percent[$j]}"
 
 	done
-	#echo "${key[@]}";
-	#echo "${percent[@]}";
 }
+
 	read -p "Enter the limit : " limit
 
 	single $limit
 	doublet $limit
+	triplet $limit
+
