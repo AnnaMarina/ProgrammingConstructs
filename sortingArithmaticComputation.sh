@@ -36,3 +36,12 @@ declare -A arithmatic
         done
         echo "The Descending order is : "${array[@]};
 
+	limit="${#array[@]}";
+        for n in ${!array[@]};
+        do
+                limit=$(($limit-1));
+                asc[(($n))]=`printf "${array[$limit]}"`;
+                #limit=$(($limit-1));
+        done
+        echo "The Ascending order is : "${asc[@]};
+
